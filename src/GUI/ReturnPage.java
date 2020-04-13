@@ -24,6 +24,7 @@ public class ReturnPage extends javax.swing.JFrame {
      */
     public ReturnPage() {
         initComponents();
+        FillCombo();
     }
 
     /**
@@ -62,8 +63,8 @@ public class ReturnPage extends javax.swing.JFrame {
         name = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        gameName = new javax.swing.JTextField();
         FindGame = new javax.swing.JButton();
+        Select_game = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -310,13 +311,6 @@ public class ReturnPage extends javax.swing.JFrame {
         jLabel7.setText("Game Name");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 230, 90, 20));
 
-        gameName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gameNameActionPerformed(evt);
-            }
-        });
-        getContentPane().add(gameName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 260, 170, 30));
-
         FindGame.setText("Find Game");
         FindGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +318,15 @@ public class ReturnPage extends javax.swing.JFrame {
             }
         });
         getContentPane().add(FindGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 300, 140, 30));
+
+        Select_game.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Select_game.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Game" }));
+        Select_game.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Select_gameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Select_game, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 260, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -487,13 +490,9 @@ public class ReturnPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Return_GameActionPerformed
 
-    private void gameNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gameNameActionPerformed
-
     private void FindNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindNameActionPerformed
         // TODO add your handling code here:
-         Connection connection = null;
+        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         String msAccDB = "..///First_DB.accdb"; // path to the DB file
@@ -561,7 +560,7 @@ public class ReturnPage extends javax.swing.JFrame {
 
     private void FindGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindGameActionPerformed
         // TODO add your handling code here:
-         Connection connection = null;
+        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         String msAccDB = "..///First_DB.accdb"; // path to the DB file
@@ -582,7 +581,7 @@ public class ReturnPage extends javax.swing.JFrame {
             connection = DriverManager.getConnection(dbURL);
           
             //Delcaring Variable 
-            String GameName = gameName.getText();
+            String GameName = (String)Select_game.getSelectedItem();
            
             
             // Creating SQL Statment 
@@ -622,6 +621,70 @@ public class ReturnPage extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_FindGameActionPerformed
+
+    private void FillCombo(){
+         Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String msAccDB = "..///First_DB.accdb"; // path to the DB file
+        String dbURL = "jdbc:ucanaccess://" + msAccDB;
+        
+          // Step 1: Loading or registering JDBC driver class
+        try {
+           // Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+           Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+        }
+        catch(ClassNotFoundException cnfex) {
+            System.out.println("Problem in loading or "
+                    + "registering MS Access JDBC driver");
+            cnfex.printStackTrace();
+        }
+         try {
+            // Step 2.A: Create and get connection using DriverManager class
+            connection = DriverManager.getConnection(dbURL);
+
+           
+            
+            // Creating SQL Statment 
+            String sql = "SELECT * FROM Game";
+            
+            //Preparing The statement 
+            PreparedStatement ps = connection.prepareStatement(sql);
+            
+            
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel tm =(DefaultTableModel)Rent_table.getModel();
+            tm.setRowCount(0);
+            
+            while(rs.next())
+            {
+                 String GName =rs.getNString("GameName");
+                 Select_game.addItem(GName);
+            }
+           
+        }
+        catch(SQLException sqlex){
+            System.err.println(sqlex.getMessage());
+        }
+        finally {
+
+        // Step 3: Closing database connection
+        try {
+            if(null != connection) {
+                // cleanup resources, once after processing
+                // and then finally close connection
+                connection.close();
+            }
+        }
+        catch (SQLException sqlex) {
+            System.err.println(sqlex.getMessage());
+        }
+        }
+    }
+    
+    private void Select_gameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Select_gameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Select_gameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -667,9 +730,9 @@ public class ReturnPage extends javax.swing.JFrame {
     private javax.swing.JTextField Rent_ID;
     private javax.swing.JTable Rent_table;
     private javax.swing.JButton Return_Game;
+    private javax.swing.JComboBox<String> Select_game;
     private javax.swing.JButton Show_Rent_info;
     private javax.swing.JTextField User_name;
-    private javax.swing.JTextField gameName;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

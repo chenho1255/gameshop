@@ -24,6 +24,7 @@ public class PurchasePage extends javax.swing.JFrame {
      */
     public PurchasePage() {
         initComponents();
+         FillCombo();
     }
 
     /**
@@ -54,11 +55,10 @@ public class PurchasePage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Pruchas_Game = new javax.swing.JButton();
         user_name = new javax.swing.JTextField();
-        game_name = new javax.swing.JTextField();
         name_Label = new javax.swing.JLabel();
-        game_Label = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         To_Rent_page = new javax.swing.JButton();
+        Select_game = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -258,15 +258,7 @@ public class PurchasePage extends javax.swing.JFrame {
             }
         });
 
-        game_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                game_nameActionPerformed(evt);
-            }
-        });
-
         name_Label.setText("Name");
-
-        game_Label.setText("Game");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Purchase");
@@ -277,6 +269,14 @@ public class PurchasePage extends javax.swing.JFrame {
         To_Rent_page.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 To_Rent_pageActionPerformed(evt);
+            }
+        });
+
+        Select_game.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Select_game.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Game" }));
+        Select_game.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Select_gameActionPerformed(evt);
             }
         });
 
@@ -291,26 +291,20 @@ public class PurchasePage extends javax.swing.JFrame {
                         .addGap(211, 211, 211)
                         .addComponent(jLabel10))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(game_Label))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(name_Label)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(game_name, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(176, 176, 176)
-                                .addComponent(To_Rent_page, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(Pruchas_Game, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(157, 157, 157)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(name_Label)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Select_game, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(user_name, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                        .addGap(176, 176, 176)
+                        .addComponent(To_Rent_page, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -327,13 +321,11 @@ public class PurchasePage extends javax.swing.JFrame {
                     .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(name_Label)
                     .addComponent(To_Rent_page, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(game_name, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(game_Label))
-                .addGap(105, 105, 105)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Select_game, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
                 .addComponent(Pruchas_Game, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 880, 630));
@@ -399,12 +391,12 @@ public class PurchasePage extends javax.swing.JFrame {
           
             //Delcaring Variable 
             String userName = user_name.getText();
-            String gameName = game_name.getText();
+            String gameName = (String)Select_game.getSelectedItem();
            
             
             // Creating SQL Statment 
-            String sql = "INSERT INTO Purchase (User_ID, Game_ID ,Username,GameName,Price)"
-                    + "SELECT User_ID,  Game_ID, Username,GameName, Price "
+            String sql = "INSERT INTO Purchase (User_ID, Game_ID )"
+                    + "SELECT User_ID,  Game_ID "
                     + "FROM User, Game "
                     + "WHERE Username = ? AND GameName = ?";
             
@@ -448,10 +440,6 @@ public class PurchasePage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_user_nameActionPerformed
 
-    private void game_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_game_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_game_nameActionPerformed
-
     private void To_Rent_pageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_To_Rent_pageActionPerformed
                                          
         // TODO add your handling code here:
@@ -460,6 +448,67 @@ public class PurchasePage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_To_Rent_pageActionPerformed
 
+    private void Select_gameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Select_gameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Select_gameActionPerformed
+
+     private void FillCombo(){
+         Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String msAccDB = "..///First_DB.accdb"; // path to the DB file
+        String dbURL = "jdbc:ucanaccess://" + msAccDB;
+        
+          // Step 1: Loading or registering JDBC driver class
+        try {
+           // Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+           Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+        }
+        catch(ClassNotFoundException cnfex) {
+            System.out.println("Problem in loading or "
+                    + "registering MS Access JDBC driver");
+            cnfex.printStackTrace();
+        }
+         try {
+            // Step 2.A: Create and get connection using DriverManager class
+            connection = DriverManager.getConnection(dbURL);
+
+            
+            // Creating SQL Statment 
+            String sql = "SELECT * FROM Game";
+            
+            //Preparing The statement 
+            PreparedStatement ps = connection.prepareStatement(sql);
+            
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                 String GName =rs.getNString("GameName");
+                 Select_game.addItem(GName);
+            }
+           
+        }
+        catch(SQLException sqlex){
+            System.err.println(sqlex.getMessage());
+        }
+        finally {
+
+        // Step 3: Closing database connection
+        try {
+            if(null != connection) {
+                // cleanup resources, once after processing
+                // and then finally close connection
+                connection.close();
+            }
+        }
+        catch (SQLException sqlex) {
+            System.err.println(sqlex.getMessage());
+        }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -500,9 +549,8 @@ public class PurchasePage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Pruchas_Game;
+    private javax.swing.JComboBox<String> Select_game;
     private javax.swing.JButton To_Rent_page;
-    private javax.swing.JLabel game_Label;
-    private javax.swing.JTextField game_name;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
